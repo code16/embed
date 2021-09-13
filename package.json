@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "embed",
+    "version": "1.0.0",
+    "scripts": {
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.0",
+        "laravel-mix": "^5.0.1"
+    },
+    "dependencies": {
+        "iframe-resizer": "^4.3.2"
+    }
+}
