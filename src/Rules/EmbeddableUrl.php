@@ -2,11 +2,11 @@
 
 namespace Code16\Embed\Rules;
 
+use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\ServiceFactory;
+use Code16\Embed\Services\Fallback;
 use Code16\Embed\ValueObjects\Url;
 use Illuminate\Contracts\Validation\Rule;
-use Code16\Embed\Exceptions\ServiceNotFoundException;
-use Code16\Embed\Services\Fallback;
 
 class EmbeddableUrl implements Rule
 {
@@ -28,8 +28,7 @@ class EmbeddableUrl implements Rule
     public function passes($attribute, $value)
     {
         try {
-            $url = new Url($value);
-            $service = $this->serviceFactory::getByUrl($url);
+            $service = $this->serviceFactory::getByUrl(new Url($value));
         } catch (ServiceNotFoundException $th) {
             return false;
         }
@@ -37,10 +36,10 @@ class EmbeddableUrl implements Rule
         if (count($this->allowedServices) === 0) {
             return true;
         }
-        
+
         return collect($this->allowedServices)
-            ->filter(fn ($allowedService) => $service instanceof $allowedService)
-            ->count() > 0;
+                ->filter(fn ($allowedService) => $service instanceof $allowedService)
+                ->count() > 0;
     }
 
     /**

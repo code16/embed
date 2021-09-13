@@ -2,9 +2,8 @@
 
 namespace Code16\Embed;
 
-use Illuminate\Contracts\View\View;
-use Code16\Embed\ValueObjects\Ratio;
 use Code16\Embed\ValueObjects\Url;
+use Illuminate\Contracts\View\View;
 
 interface ServiceContract
 {

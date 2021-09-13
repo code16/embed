@@ -2,11 +2,9 @@
 
 namespace Code16\Embed;
 
-use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
 use Code16\Embed\ValueObjects\Url;
-use Illuminate\Support\Facades\Cache;
-use Code16\Embed\ValueObjects\Ratio;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 
 abstract class ServiceBase implements ServiceContract
 {

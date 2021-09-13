@@ -3,9 +3,7 @@
 namespace Code16\Embed;
 
 use Code16\Embed\View\Components\Embed;
-use Code16\Embed\ViewComponents\EmbedWrapper;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class EmbedServiceProvider extends ServiceProvider
@@ -19,7 +17,7 @@ class EmbedServiceProvider extends ServiceProvider
     {
         Blade::component('embed', Embed::class);
 
-	    $this->loadViewsFrom(__DIR__.'/../resources/views', 'embed');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'embed');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/embed'),

@@ -1,7 +1,7 @@
 {
     "name": "code16/embed",
     "type": "library",
-    "description": "Embed lravel blade component + validation",
+    "description": "Embed laravel blade component + validation",
     "keywords": [
         "code16",
         "embed",

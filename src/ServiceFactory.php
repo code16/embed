@@ -2,22 +2,21 @@
 
 namespace Code16\Embed;
 
-use Code16\Embed\ValueObjects\Url;
-use Symfony\Component\Finder\Finder;
-use Code16\Embed\Services\Fallback;
-use Illuminate\Support\Facades\Cache;
-use Code16\Embed\Tests\Fakes\ServiceFactoryFake;
 use Code16\Embed\Exceptions\ServiceNotFoundException;
+use Code16\Embed\Services\Fallback;
+use Code16\Embed\ValueObjects\Url;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\Finder\Finder;
 
 class ServiceFactory
 {
-    protected $serviceClassesPath =  __DIR__ . '/Services';
-    protected $serviceClassesNamespace =  "Code16\Embed\Services\\";
+    protected string $serviceClassesPath = __DIR__ . '/Services';
+    protected string $serviceClassesNamespace = "Code16\Embed\Services\\";
 
     public static function getByUrl(Url $url): ServiceContract
     {
         $factory = self::resolve();
-        $cacheKey = 'larevel-embed-service::' . $url;
+        $cacheKey = 'laravel-embed-service::' . $url;
 
         if (Cache::has($cacheKey)) {
             $serviceClass = Cache::get($cacheKey);
@@ -37,11 +36,6 @@ class ServiceFactory
     public static function getFallback(Url $url): ServiceContract
     {
         return new Fallback($url);
-    }
-
-    public static function fake(): void
-    {
-        app()->instance(ServiceFactory::class, new ServiceFactoryFake);
     }
 
     public function serviceClasses(): array
