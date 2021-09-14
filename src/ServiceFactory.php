@@ -4,6 +4,7 @@ namespace Code16\Embed;
 
 use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\Services\Fallback;
+use Code16\Embed\Tests\Fakes\ServiceFactoryFake;
 use Code16\Embed\ValueObjects\Url;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Finder\Finder;
@@ -43,15 +44,20 @@ class ServiceFactory
         $directoryIterator = (new Finder)
             ->files()
             ->in($this->serviceClassesPath)
+            ->depth(0)
             ->name('*.php')
             ->getIterator();
-        $serviceClasses = [];
 
         foreach ($directoryIterator as $file) {
             $serviceClasses[] = $this->serviceClassesNamespace . $file->getFilenameWithoutExtension();
         }
 
-        return $serviceClasses;
+        return $serviceClasses ?? [];
+    }
+
+    public static function fake(): void
+    {
+        app()->instance(ServiceFactory::class, new ServiceFactoryFake);
     }
 
     protected static function resolve(): self

@@ -2,7 +2,6 @@
     'videoId'
 ])
 
-
 <iframe
     {{ $attributes }}
     src="https://player.vimeo.com/video/{{ $videoId }}"

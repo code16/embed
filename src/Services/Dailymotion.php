@@ -3,21 +3,11 @@
 namespace Code16\Embed\Services;
 
 use Code16\Embed\ServiceBase;
-use Code16\Embed\ValueObjects\Url;
+use Code16\Embed\Services\Utils\IsVideoService;
 
 class Dailymotion extends ServiceBase
 {
-    public static function detect(Url $url): bool
-    {
-        return (new self($url))->videoId() !== null;
-    }
-
-    public function viewData(): array
-    {
-        return [
-            'videoId' => $this->videoId(),
-        ];
-    }
+    use IsVideoService;
 
     /**
      * @link https://github.com/OpenCode/awesome-regex#dailymotion

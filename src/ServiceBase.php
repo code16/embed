@@ -3,7 +3,6 @@
 namespace Code16\Embed;
 
 use Code16\Embed\ValueObjects\Url;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 
 abstract class ServiceBase implements ServiceContract
@@ -16,17 +15,7 @@ abstract class ServiceBase implements ServiceContract
     }
 
     abstract public static function detect(Url $url): bool;
-    
-    public function view(): View
-    {
-        return view($this->fullViewName(), $this->viewData());
-    }
-    
-    protected function viewName(): string
-    {
-        return $this->guessViewName();
-    }
-    
+
     public function fullViewName(): string
     {
         return 'embed::services.' . $this->viewName();
@@ -35,6 +24,11 @@ abstract class ServiceBase implements ServiceContract
     public function viewData(): array
     {
         return [];
+    }
+
+    protected function viewName(): string
+    {
+        return $this->guessViewName();
     }
 
     protected function guessViewName(): string
