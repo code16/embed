@@ -3,6 +3,7 @@
 namespace Code16\Embed;
 
 use Code16\Embed\View\Components\Embed;
+use Code16\Embed\View\Components\EmbedVideo;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +17,7 @@ class EmbedServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('embed', Embed::class);
+        Blade::component('embed-video', EmbedVideo::class);
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'embed');
 

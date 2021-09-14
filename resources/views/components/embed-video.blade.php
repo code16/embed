@@ -1,10 +1,10 @@
 @php
-    /**
-     * @var \Code16\Embed\View\Components\Embed $self
-     */
+/**
+ * @var \Code16\Embed\View\Components\EmbedVideo $self
+ */
 @endphp
 
 <x-dynamic-component
-        :component="$self->serviceComponentName()"
-        :attributes="$self->serviceComponentAttributes()"
+    :component="$self->serviceComponentName()"
+    :attributes="$self->serviceComponentAttributes()"
 />
