@@ -4,11 +4,12 @@
     "version": "1.0.0",
     "scripts": {
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "mix --production"
     },
     "devDependencies": {
-        "cross-env": "^7.0.0",
-        "laravel-mix": "^5.0.1"
+        "laravel-mix": "^6.0.31",
+        "sass": "^1.42.1",
+        "sass-loader": "^12.1.0"
     },
     "dependencies": {
         "iframe-resizer": "^4.3.2"

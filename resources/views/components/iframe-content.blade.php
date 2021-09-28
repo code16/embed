@@ -1,14 +1,11 @@
-<html>
+@props([
+    'html',
+    'video' => false,
+])
+
+<html @class(['video' => $video])>
     <head>
-        <style>
-            html, body  {
-                overflow: hidden;
-            }
-            * {
-                margin-top: 0!important;
-                margin-bottom: 0!important;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ mix('css/iframe-content.css', '/vendor/embed') }}">
     </head>
     <body style="margin: 0">
         {!! $html !!}

@@ -6,11 +6,10 @@ use Illuminate\View\Component;
 
 class Embed extends Component
 {
-    public string $html;
-
-    public function __construct(string $html)
-    {
-        $this->html = $html;
+    public function __construct(
+        public string $html,
+        public bool $video = false // force full height + full width
+    ) {
     }
     
     public function render()

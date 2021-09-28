@@ -1,0 +1,22 @@
+
+html, body  {
+  overflow: hidden;
+}
+* {
+  margin-top: 0!important;
+  margin-bottom: 0!important;
+}
+
+html.video {
+  height: 100%;
+
+  body {
+    height: 100%;
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
