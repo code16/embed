@@ -9,6 +9,6 @@
     </head>
     <body style="margin: 0">
         {!! $html !!}
-        <script src="{{ mix('iframeResizer.contentWindow.min.js', '/vendor/embed') }}"></script>
+        <script src="{{ mix('js/iframeResizer.contentWindow.min.js', '/vendor/embed') }}"></script>
     </body>
 </html>

@@ -15,7 +15,7 @@
 @if(!$video)
     @once
         @push('embed::script')
-            <script src="{{ mix('iframeResizer.min.js', '/vendor/embed') }}"></script>
+            <script src="{{ mix('js/iframeResizer.min.js', '/vendor/embed') }}"></script>
             <script>
                 function handleEmbedIframeLoaded(iframe) {
                     iFrameResize({
