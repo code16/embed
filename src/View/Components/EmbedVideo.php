@@ -14,8 +14,10 @@ class EmbedVideo extends Component
     protected ServiceContract $service;
     protected Url $url;
 
-    public function __construct(string $url)
-    {
+    public function __construct(
+        string $url,
+        public bool $autoplay = false,
+    ) {
         $this->url = new Url($url);
         $this->service = $this->findService();
     }

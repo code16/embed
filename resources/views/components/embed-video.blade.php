@@ -7,4 +7,5 @@
 <x-dynamic-component
     :component="$self->serviceComponentName()"
     :attributes="$self->serviceComponentAttributes()"
+    :autoplay="$autoplay"
 />
