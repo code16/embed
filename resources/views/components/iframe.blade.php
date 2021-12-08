@@ -15,14 +15,21 @@
 @if(!$video)
     @once
         @push('embed::script')
-            <script src="{{ mix('js/iframeResizer.min.js', '/vendor/embed') }}"></script>
+            <script src="{{ mix('js/iframeResizer.min.js', '/vendor/embed') }}" defer></script>
             <script>
                 function handleEmbedIframeLoaded(iframe) {
-                    iFrameResize({
-                        heightCalculationMethod: 'documentElementOffset',
-                        sizeWidth: true,
-                        checkOrigin: false,
-                    }, iframe);
+                    function setup() {
+                        iFrameResize({
+                            heightCalculationMethod: 'documentElementOffset',
+                            sizeWidth: true,
+                            checkOrigin: false,
+                        }, iframe);
+                    }
+                    if('iFrameResize' in window) {
+                        setup();
+                    } else {
+                        window.addEventListener('DOMContentLoaded', setup);
+                    }
                 }
             </script>
         @endpush
