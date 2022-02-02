@@ -15,7 +15,7 @@
 @if(!$video)
     @once
         @push('embed::script')
-            <script src="{{ mix('js/iframeResizer.min.js', '/vendor/embed') }}" defer></script>
+            <script src="{{ mix('js/iframeResizer.min.js', '/vendor/embed') }}" async data-embed-script></script>
             <script>
                 function handleEmbedIframeLoaded(iframe) {
                     function setup() {
@@ -28,7 +28,7 @@
                     if('iFrameResize' in window) {
                         setup();
                     } else {
-                        window.addEventListener('DOMContentLoaded', setup);
+                        document.querySelector('[data-embed-script]').addEventListener('load', setup);
                     }
                 }
             </script>
