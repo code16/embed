@@ -19,12 +19,21 @@
             <script>
                 function handleEmbedIframeLoaded(iframe) {
                     function setup() {
+                        const dom = document.createElement('div');
+                        dom.innerHTML = iframe.srcdoc;
+                        const isFullWidth = dom.querySelector('iframe') && dom.querySelector('iframe').width === '100%';
+
+                        if(isFullWidth) {
+                            iframe.width = '100%';
+                        }
+
                         iFrameResize({
                             heightCalculationMethod: 'documentElementOffset',
-                            sizeWidth: true,
+                            sizeWidth: !isFullWidth,
                             checkOrigin: false,
                         }, iframe);
                     }
+
                     if('iFrameResize' in window) {
                         setup();
                     } else {
