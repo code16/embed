@@ -14,7 +14,7 @@ class Dailymotion extends ServiceBase
      */
     protected function videoId(): ?string
     {
-        preg_match('/^https?:\/\/(?:www\.)?dai\.?ly(motion)?(?:\.com)?\/?.*(?:video|embed)?(?:.*v=|v\/|\/)([a-z0-9]+)/i', $this->url, $match);
+        preg_match('/^https?:\/\/(?:www\.)?dai\.?ly(?:motion)?(?:\.com)?\/?.*(?:video|embed)?(?:.*v=|v\/|\/)([a-z0-9]+)/i', $this->url, $match);
 
         if (array_key_exists(1, $match)) {
             return $match[1];
