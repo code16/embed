@@ -7,10 +7,6 @@ html, body  {
   margin-bottom: 0!important;
 }
 
-:where(iframe:not([hidden])) {
-  display: block;
-}
-
 html.video {
   height: 100%;
 
