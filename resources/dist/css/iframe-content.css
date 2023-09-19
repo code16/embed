@@ -1,1 +1,1 @@
-body,html{overflow:hidden}*{margin-bottom:0!important;margin-top:0!important}html.video,html.video body{height:100%}html.video iframe{display:block;height:100%;width:100%}
+body,html{overflow:hidden}*{margin-bottom:0!important;margin-top:0!important}html.video,html.video body{height:100%}html.video iframe{display:block;height:100vh;width:100vw}
