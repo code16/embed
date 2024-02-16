@@ -23,8 +23,14 @@ class EmbeddableUrlTest extends EmbedTestCase
         ];
 
         foreach ($validUrls as $url) {
-            $this->assertTrue((new EmbeddableUrl)->passes('', $url));
+            (new EmbeddableUrl)->validate(
+                'attr',
+                $url,
+                fn ($message) => $this->fail("Validation failed with message: $message")
+            );
         }
+
+        $this->assertTrue(true);
     }
 
     /** @test */
@@ -32,14 +38,18 @@ class EmbeddableUrlTest extends EmbedTestCase
     {
         $url = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
         $allowedServices = [
-            YouTube::class,
+            Youtube::class,
         ];
 
-        $this->assertTrue(
-            (new EmbeddableUrl)
-                ->allowedServices($allowedServices)
-                ->passes('', $url)
-        );
+        (new EmbeddableUrl)
+            ->allowedServices($allowedServices)
+            ->validate(
+                'attr',
+                $url,
+                fn ($message) => $this->fail("Validation failed with message: $message")
+            );
+
+        $this->assertTrue(true);
     }
 
     /** @test */
@@ -55,67 +65,51 @@ class EmbeddableUrlTest extends EmbedTestCase
         ];
 
         foreach ($validUrls as $url) {
-            $this->assertTrue(
-                (new EmbeddableUrl)
-                    ->allowedServices($allowedServices)
-                    ->passes('', $url)
-            );
+            (new EmbeddableUrl)
+                ->allowedServices($allowedServices)
+                ->validate(
+                    'attr',
+                    $url,
+                    fn ($message) => $this->fail("Validation failed with message: $message")
+                );
         }
+
+        $this->assertTrue(true);
     }
 
     /** @test */
     public function it_fails_for_an_invalid_url()
     {
-        $this->assertFalse(
-            (new EmbeddableUrl)
-                ->passes('', 'xyz')
-        );
+        $exception = null;
+
+        (new EmbeddableUrl)
+            ->validate(
+                'attr',
+                'some invalid url',
+                function ($message) use (&$exception) {
+                    $exception = $message;
+                }
+            );
+
+        $this->assertNotNull($exception);
     }
 
     /** @test */
     public function it_fails_for_an_unsupported_service()
     {
-        $url = 'https://www.real.com/video/xg4y8d';
-        $allowedServices = [
-            YouTube::class,
-        ];
+        $exception = null;
 
-        $this->assertFalse(
-            (new EmbeddableUrl)
-                ->allowedServices($allowedServices)
-                ->passes('', $url)
-        );
-    }
+        (new EmbeddableUrl)
+            ->allowedServices([YouTube::class, Vimeo::class])
+            ->validate(
+                'attr',
+                'https://www.real.com/video/xg4y8d',
+                function ($message) use (&$exception) {
+                    $exception = $message;
+                }
+            );
 
-    /** @test */
-    public function it_fails_for_service_not_in_allowed_list_single()
-    {
-        $url = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-        $allowedServices = [
-            Vimeo::class,
-        ];
-
-        $this->assertFalse(
-            (new EmbeddableUrl)
-                ->allowedServices($allowedServices)
-                ->passes('', $url)
-        );
-    }
-
-    /** @test */
-    public function it_fails_for_service_not_in_allowed_list_multiple()
-    {
-        $url = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-        $allowedServices = [
-            Vimeo::class,
-            Dailymotion::class,
-        ];
-
-        $this->assertFalse(
-            (new EmbeddableUrl)
-                ->allowedServices($allowedServices)
-                ->passes('', $url)
-        );
+        $this->assertNotNull($exception);
     }
 
     /** @test */

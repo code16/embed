@@ -2,13 +2,15 @@
 
 namespace Code16\Embed\Rules;
 
+use Closure;
 use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\ServiceFactory;
 use Code16\Embed\Services\Fallback;
 use Code16\Embed\ValueObjects\Url;
-use Illuminate\Contracts\Validation\Rule;
+use Exception;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class EmbeddableUrl implements Rule
+class EmbeddableUrl implements ValidationRule
 {
     protected array $allowedServices = [];
     protected ServiceFactory $serviceFactory;
@@ -18,37 +20,45 @@ class EmbeddableUrl implements Rule
         $this->serviceFactory = new ServiceFactory;
     }
 
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function allowedServices(array $services): self
+    {
+        $this->allowedServices = $services;
+
+        return $this;
+    }
+
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         try {
             $service = $this->serviceFactory::getByUrl(new Url($value));
-        } catch (ServiceNotFoundException $th) {
-            return false;
-        }
 
-        if (count($this->allowedServices) === 0) {
-            return true;
-        }
+            if (count($this->allowedServices) != 0) {
+                $count = collect($this->allowedServices)
+                    ->filter(fn($allowedService) => $service instanceof $allowedService)
+                    ->count();
 
-        return collect($this->allowedServices)
-                ->filter(fn ($allowedService) => $service instanceof $allowedService)
-                ->count() > 0;
+                if ($count === 0) {
+                    $fail($this->unknownServiceMessage());
+                }
+            }
+
+        } catch (ServiceNotFoundException|Exception) {
+            $fail($this->unknownServiceMessage());
+        }
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    /** @deprecated use unknownServiceMessage() instead. Will be removed in 3.x */
+    protected function message()
     {
+    }
+
+    protected function unknownServiceMessage(): string
+    {
+        // Workaround for deprecation v1.x; remove in 3.x
+        if($message = $this->message()) {
+            return $message;
+        }
+
         $allowedServiceClasses = count($this->allowedServices) > 0 ? $this->allowedServices : $this->serviceFactory->serviceClasses();
         $commaSeparatedServiceNames = collect($allowedServiceClasses)
             ->reject(fn ($serviceClass) => $serviceClass === Fallback::class)
@@ -57,12 +67,5 @@ class EmbeddableUrl implements Rule
             ->join(', ', ' or ');
 
         return "The :attribute must be a URL from one of the following services: $commaSeparatedServiceNames.";
-    }
-
-    public function allowedServices(array $services): self
-    {
-        $this->allowedServices = $services;
-
-        return $this;
     }
 }

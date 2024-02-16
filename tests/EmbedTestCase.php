@@ -2,13 +2,14 @@
 
 namespace Code16\Embed\Tests;
 
+use Code16\Embed\EmbedServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class EmbedTestCase extends TestCase
 {
     protected function getPackageProviders($app)
     {
-        return [\Code16\Embed\EmbedServiceProvider::class];
+        return [EmbedServiceProvider::class];
     }
 
     protected function getEnvironmentSetUp($app)
