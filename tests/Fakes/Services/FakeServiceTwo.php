@@ -25,7 +25,7 @@ class FakeServiceTwo extends ServiceBase
         return null;
     }
     
-    public function thumbnailUrl(): ?string
+    public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;
     }

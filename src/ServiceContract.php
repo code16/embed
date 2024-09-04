@@ -10,5 +10,5 @@ interface ServiceContract
     public function fullViewName(): string;
     public function viewData(): array;
     public function videoId(): ?string;
-    public function thumbnailUrl(): ?string;
+    public function thumbnailUrl(bool $maxResolution = true): ?string;
 }
