@@ -19,4 +19,14 @@ class FakeServiceTwo extends ServiceBase
             'foo' => 'bar',
         ];
     }
+    
+    public function videoId(): ?string
+    {
+        return null;
+    }
+    
+    public function thumbnailUrl(): ?string
+    {
+        return null;
+    }
 }

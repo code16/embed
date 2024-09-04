@@ -3,6 +3,7 @@
 namespace Code16\Embed;
 
 use Code16\Embed\ValueObjects\Url;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 abstract class ServiceBase implements ServiceContract
@@ -34,5 +35,11 @@ abstract class ServiceBase implements ServiceContract
     protected function guessViewName(): string
     {
         return Str::of(class_basename($this))->kebab()->lower();
+    }
+    
+    protected function cacheThumbnailUrl(\Closure $callback, ?string $cacheKey = null): ?string
+    {
+        $cacheKey = sprintf('laravel-embed-thumbnail::%s_%s', $this->url, $cacheKey ?: 'default');
+        return Cache::rememberForever($cacheKey, $callback);
     }
 }

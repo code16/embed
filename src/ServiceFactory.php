@@ -14,8 +14,12 @@ class ServiceFactory
     protected string $serviceClassesPath = __DIR__ . '/Services';
     protected string $serviceClassesNamespace = "Code16\Embed\Services\\";
 
-    public static function getByUrl(Url $url): ServiceContract
+    public static function getByUrl(Url|string $url): ?ServiceContract
     {
+        if(is_string($url)) {
+            $url = new Url($url);
+        }
+        
         $factory = self::resolve();
         $cacheKey = 'laravel-embed-service::' . $url;
 
@@ -31,7 +35,7 @@ class ServiceFactory
             };
         }
 
-        throw new ServiceNotFoundException($url);
+        return null;
     }
 
     public static function getFallback(Url $url): ServiceContract

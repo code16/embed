@@ -24,11 +24,7 @@ class EmbedVideo extends Component
 
     private function findService(): ServiceContract
     {
-        try {
-            $this->service = ServiceFactory::getByUrl($this->url);
-        } catch (ServiceNotFoundException $th) {
-            $this->service = ServiceFactory::getFallback($this->url);
-        }
+        $this->service = ServiceFactory::getByUrl($this->url) ?: ServiceFactory::getFallback($this->url);
 
         return $this->service;
     }

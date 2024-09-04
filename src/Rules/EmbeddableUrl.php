@@ -30,19 +30,20 @@ class EmbeddableUrl implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         try {
-            $service = $this->serviceFactory::getByUrl(new Url($value));
-
-            if (count($this->allowedServices) != 0) {
-                $count = collect($this->allowedServices)
-                    ->filter(fn($allowedService) => $service instanceof $allowedService)
-                    ->count();
-
-                if ($count === 0) {
-                    $fail($this->unknownServiceMessage());
+            if($service = $this->serviceFactory::getByUrl(new Url($value))) {
+                if (count($this->allowedServices) != 0) {
+                    $count = collect($this->allowedServices)
+                        ->filter(fn($allowedService) => $service instanceof $allowedService)
+                        ->count();
+                    
+                    if ($count === 0) {
+                        $fail($this->unknownServiceMessage());
+                    }
                 }
+            } else {
+                $fail($this->unknownServiceMessage());
             }
-
-        } catch (ServiceNotFoundException|Exception) {
+        } catch (Exception) {
             $fail($this->unknownServiceMessage());
         }
     }

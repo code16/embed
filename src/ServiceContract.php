@@ -9,4 +9,6 @@ interface ServiceContract
     public static function detect(Url $url): bool;
     public function fullViewName(): string;
     public function viewData(): array;
+    public function videoId(): ?string;
+    public function thumbnailUrl(): ?string;
 }

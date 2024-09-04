@@ -26,9 +26,7 @@ class ServiceFactoryTest extends EmbedTestCase
     {
         ServiceFactory::fake();
 
-        $this->expectException(ServiceNotFoundException::class);
-
-        ServiceFactory::getByUrl(new Url('https://non-existing-service.com'));
+        $this->assertNull(ServiceFactory::getByUrl(new Url('https://non-existing-service.com')));
     }
 
     /** @test */

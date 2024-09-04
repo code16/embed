@@ -12,7 +12,7 @@ class Vimeo extends ServiceBase
     /**
      * @link https://stackoverflow.com/a/16841070/3498182
      */
-    protected function videoId(): ?string
+    public function videoId(): ?string
     {
         preg_match(
             '/(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/',
@@ -24,6 +24,11 @@ class Vimeo extends ServiceBase
             return $match[5];
         }
 
+        return null;
+    }
+    
+    public function thumbnailUrl(): ?string
+    {
         return null;
     }
 }
