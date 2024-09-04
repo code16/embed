@@ -9,6 +9,7 @@ public/hot
 
 storage/*.key
 .env
+.phpunit.cache
 .phpunit.result.cache
 .DS_Store
 .idea
