@@ -23,7 +23,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         ];
 
         foreach ($validUrls as $url) {
-            (new EmbeddableUrl)->validate(
+            (new EmbeddableUrl())->validate(
                 'attr',
                 $url,
                 fn ($message) => $this->fail("Validation failed with message: $message")
@@ -41,7 +41,7 @@ class EmbeddableUrlTest extends EmbedTestCase
             Youtube::class,
         ];
 
-        (new EmbeddableUrl)
+        (new EmbeddableUrl())
             ->allowedServices($allowedServices)
             ->validate(
                 'attr',
@@ -65,7 +65,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         ];
 
         foreach ($validUrls as $url) {
-            (new EmbeddableUrl)
+            (new EmbeddableUrl())
                 ->allowedServices($allowedServices)
                 ->validate(
                     'attr',
@@ -82,7 +82,7 @@ class EmbeddableUrlTest extends EmbedTestCase
     {
         $exception = null;
 
-        (new EmbeddableUrl)
+        (new EmbeddableUrl())
             ->validate(
                 'attr',
                 'some invalid url',
@@ -99,7 +99,7 @@ class EmbeddableUrlTest extends EmbedTestCase
     {
         $exception = null;
 
-        (new EmbeddableUrl)
+        (new EmbeddableUrl())
             ->allowedServices([YouTube::class, Vimeo::class])
             ->validate(
                 'attr',
@@ -116,7 +116,7 @@ class EmbeddableUrlTest extends EmbedTestCase
     public function it_replaces_supported_services_in_message_with_no_services_specified()
     {
         $url = 'https://www.real.com/video/xg4y8d';
-        $rule = new EmbeddableUrl;
+        $rule = new EmbeddableUrl();
         $expectedMessage = 'The url must be a URL from one of the following services: Dailymotion, Vimeo or YouTube.';
 
         $this->assertValidationMessage($url, $rule, $expectedMessage);
@@ -137,7 +137,7 @@ class EmbeddableUrlTest extends EmbedTestCase
     public function it_replaces_supported_service_in_message()
     {
         $url = 'https://www.real.com/video/xg4y8d';
-        $rule = (new EmbeddableUrl)->allowedServices([YouTube::class]);
+        $rule = (new EmbeddableUrl())->allowedServices([YouTube::class]);
         $expectedMessage = 'The url must be a URL from one of the following services: YouTube.';
 
         $this->assertValidationMessage($url, $rule, $expectedMessage);
@@ -147,7 +147,7 @@ class EmbeddableUrlTest extends EmbedTestCase
     public function it_replaces_supported_services_list_in_message()
     {
         $url = 'https://www.real.com/video/xg4y8d';
-        $rule = (new EmbeddableUrl)->allowedServices([YouTube::class, Vimeo::class, Dailymotion::class]);
+        $rule = (new EmbeddableUrl())->allowedServices([YouTube::class, Vimeo::class, Dailymotion::class]);
         $expectedMessage = 'The url must be a URL from one of the following services: Dailymotion, Vimeo or YouTube.';
 
         $this->assertValidationMessage($url, $rule, $expectedMessage);

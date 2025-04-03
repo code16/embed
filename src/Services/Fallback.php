@@ -11,17 +11,17 @@ class Fallback extends ServiceBase
     {
         return false;
     }
-    
+
     public function videoId(): ?string
     {
         return null;
     }
-    
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;
     }
-    
+
     public function viewData(): array
     {
         return [

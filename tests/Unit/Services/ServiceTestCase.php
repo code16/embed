@@ -11,7 +11,7 @@ abstract class ServiceTestCase extends EmbedTestCase
     /** @test */
     public function it_renders_the_correct_view()
     {
-        $this->assertEquals('embed::services.' . $this->expectedViewName(), $this->service()->fullViewName());
+        $this->assertEquals('embed::services.'.$this->expectedViewName(), $this->service()->fullViewName());
     }
 
     abstract protected function expectedViewName(): string;

@@ -32,16 +32,16 @@ class YouTube extends ServiceBase
 
         return null;
     }
-    
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return $this->cacheThumbnailUrl(function () use ($maxResolution) {
             $videoId = $this->videoId();
-            
-            if($maxResolution && Http::head($url = "https://i.ytimg.com/vi/{$videoId}/maxresdefault.jpg")->status() == 200) {
+
+            if ($maxResolution && Http::head($url = "https://i.ytimg.com/vi/{$videoId}/maxresdefault.jpg")->status() == 200) {
                 return $url;
             }
-            
+
             return "https://i.ytimg.com/vi/{$videoId}/hqdefault.jpg";
         },
             $maxResolution ? 'max' : 'low'

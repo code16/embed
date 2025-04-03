@@ -19,14 +19,14 @@ class EmbedServiceProvider extends ServiceProvider
         Blade::component('embed', Embed::class);
         Blade::component('embed-video', EmbedVideo::class);
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'embed');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'embed');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/embed'),
         ], 'views');
-    
+
         $this->publishes([
-            __DIR__.'/../resources/dist' => public_path('vendor/embed')
+            __DIR__.'/../resources/dist' => public_path('vendor/embed'),
         ], 'assets');
     }
 }

@@ -11,7 +11,7 @@ class Embed extends Component
         public bool $video = false // force full height + full width
     ) {
     }
-    
+
     public function render()
     {
         return view('embed::components.embed');

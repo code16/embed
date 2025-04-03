@@ -26,7 +26,7 @@ class Vimeo extends ServiceBase
 
         return null;
     }
-    
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;

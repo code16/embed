@@ -3,7 +3,6 @@
 namespace Code16\Embed\Rules;
 
 use Closure;
-use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\ServiceFactory;
 use Code16\Embed\Services\Fallback;
 use Code16\Embed\ValueObjects\Url;
@@ -17,7 +16,7 @@ class EmbeddableUrl implements ValidationRule
 
     public function __construct()
     {
-        $this->serviceFactory = new ServiceFactory;
+        $this->serviceFactory = new ServiceFactory();
     }
 
     public function allowedServices(array $services): self
@@ -30,12 +29,12 @@ class EmbeddableUrl implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         try {
-            if($service = $this->serviceFactory::getByUrl(new Url($value))) {
+            if ($service = $this->serviceFactory::getByUrl(new Url($value))) {
                 if (count($this->allowedServices) != 0) {
                     $count = collect($this->allowedServices)
-                        ->filter(fn($allowedService) => $service instanceof $allowedService)
+                        ->filter(fn ($allowedService) => $service instanceof $allowedService)
                         ->count();
-                    
+
                     if ($count === 0) {
                         $fail($this->unknownServiceMessage());
                     }
@@ -56,7 +55,7 @@ class EmbeddableUrl implements ValidationRule
     protected function unknownServiceMessage(): string
     {
         // Workaround for deprecation v1.x; remove in 3.x
-        if($message = $this->message()) {
+        if ($message = $this->message()) {
             return $message;
         }
 

@@ -2,7 +2,6 @@
 
 namespace Code16\Embed\View\Components;
 
-use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\ServiceContract;
 use Code16\Embed\ServiceFactory;
 use Code16\Embed\ValueObjects\Url;

@@ -2,7 +2,6 @@
 
 namespace Code16\Embed\Tests\Unit;
 
-use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\ServiceFactory;
 use Code16\Embed\Services\Fallback;
 use Code16\Embed\Tests\EmbedTestCase;

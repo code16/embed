@@ -14,6 +14,6 @@ class EmbedTestCase extends TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['view']->addNamespace('embed', __DIR__ . '/Fakes/views');
+        $app['view']->addNamespace('embed', __DIR__.'/Fakes/views');
     }
 }

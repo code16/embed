@@ -26,7 +26,7 @@ class UrlTest extends EmbedTestCase
     public function it_can_be_cast_to_a_string()
     {
         $url = new Url('https://example.org');
-        $this->assertEquals('https://example.org', (string)$url);
+        $this->assertEquals('https://example.org', (string) $url);
     }
 
     /** @test */
@@ -35,6 +35,6 @@ class UrlTest extends EmbedTestCase
         $url = new Url('example.org');
 
         $this->assertInstanceOf(Url::class, $url);
-        $this->assertEquals('https://example.org', (string)$url);
+        $this->assertEquals('https://example.org', (string) $url);
     }
 }

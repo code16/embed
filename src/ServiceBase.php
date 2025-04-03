@@ -19,7 +19,7 @@ abstract class ServiceBase implements ServiceContract
 
     public function fullViewName(): string
     {
-        return 'embed::services.' . $this->viewName();
+        return 'embed::services.'.$this->viewName();
     }
 
     public function viewData(): array
@@ -36,10 +36,11 @@ abstract class ServiceBase implements ServiceContract
     {
         return Str::of(class_basename($this))->kebab()->lower();
     }
-    
+
     protected function cacheThumbnailUrl(\Closure $callback, ?string $cacheKey = null): ?string
     {
         $cacheKey = sprintf('laravel-embed-thumbnail::%s_%s', $this->url, $cacheKey ?: 'default');
+
         return Cache::rememberForever($cacheKey, $callback);
     }
 }

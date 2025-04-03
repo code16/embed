@@ -2,7 +2,6 @@
 
 namespace Code16\Embed;
 
-use Code16\Embed\Exceptions\ServiceNotFoundException;
 use Code16\Embed\Services\Fallback;
 use Code16\Embed\Tests\Fakes\ServiceFactoryFake;
 use Code16\Embed\ValueObjects\Url;
@@ -11,28 +10,30 @@ use Symfony\Component\Finder\Finder;
 
 class ServiceFactory
 {
-    protected string $serviceClassesPath = __DIR__ . '/Services';
+    protected string $serviceClassesPath = __DIR__.'/Services';
     protected string $serviceClassesNamespace = "Code16\Embed\Services\\";
 
     public static function getByUrl(Url|string $url): ?ServiceContract
     {
-        if(is_string($url)) {
+        if (is_string($url)) {
             $url = new Url($url);
         }
-        
+
         $factory = self::resolve();
-        $cacheKey = 'laravel-embed-service::' . $url;
+        $cacheKey = 'laravel-embed-service::'.$url;
 
         if (Cache::has($cacheKey)) {
             $serviceClass = Cache::get($cacheKey);
+
             return new $serviceClass($url);
         }
 
         foreach ($factory->serviceClasses() as $serviceClass) {
             if ($serviceClass::detect($url)) {
                 Cache::forever($cacheKey, $serviceClass);
+
                 return new $serviceClass($url);
-            };
+            }
         }
 
         return null;
@@ -45,7 +46,7 @@ class ServiceFactory
 
     public function serviceClasses(): array
     {
-        $directoryIterator = (new Finder)
+        $directoryIterator = (new Finder())
             ->files()
             ->in($this->serviceClassesPath)
             ->depth(0)
@@ -53,7 +54,7 @@ class ServiceFactory
             ->getIterator();
 
         foreach ($directoryIterator as $file) {
-            $serviceClasses[] = $this->serviceClassesNamespace . $file->getFilenameWithoutExtension();
+            $serviceClasses[] = $this->serviceClassesNamespace.$file->getFilenameWithoutExtension();
         }
 
         return $serviceClasses ?? [];
@@ -61,7 +62,7 @@ class ServiceFactory
 
     public static function fake(): void
     {
-        app()->instance(ServiceFactory::class, new ServiceFactoryFake);
+        app()->instance(ServiceFactory::class, new ServiceFactoryFake());
     }
 
     protected static function resolve(): self

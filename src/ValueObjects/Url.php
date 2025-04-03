@@ -11,14 +11,14 @@ class Url
 
     public function __construct(string $url)
     {
-        if (! Str::startsWith($url, ['http://', 'https://'])) {
-            $url = 'https://' . $url;
-        };
+        if (!Str::startsWith($url, ['http://', 'https://'])) {
+            $url = 'https://'.$url;
+        }
 
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException("The URL $url is invalid.");
         }
-        
+
         $this->url = $url;
     }
 

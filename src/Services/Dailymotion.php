@@ -8,7 +8,7 @@ use Code16\Embed\Services\Utils\IsVideoService;
 class Dailymotion extends ServiceBase
 {
     use IsVideoService;
-    
+
     /**
      * @link https://github.com/OpenCode/awesome-regex#dailymotion
      */
@@ -22,7 +22,7 @@ class Dailymotion extends ServiceBase
 
         return null;
     }
-    
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;
