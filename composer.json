@@ -17,7 +17,9 @@
         "illuminate/support": "^10.0|^11.0|^12.0"
     },
     "require-dev": {
-        "laravel/framework": "^10.0|^11.0",
+        "code16/pint-config": "^1.2",
+        "laravel/framework": "^10.0|^11.0|^12.0",
+        "laravel/pint": "^1.21",
         "orchestra/testbench": "^8.0|^9.0|^10.0",
         "phpunit/phpunit": "^10.0|^11.0"
     },
@@ -32,7 +34,10 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "post-autoload-dump": [
+            "@php vendor/bin/pint-config install"
+        ]
     },
     "extra": {
         "branch-alias": {
