@@ -41,6 +41,18 @@ abstract class ServiceBase implements ServiceContract
     {
         $cacheKey = sprintf('laravel-embed-thumbnail::%s_%s', $this->url, $cacheKey ?: 'default');
 
-        return Cache::rememberForever($cacheKey, $callback);
+        if (($url = Cache::get($cacheKey)) !== null) {
+            return $url;
+        }
+
+        $url = $callback();
+
+        if ($url) {
+            Cache::forever($cacheKey, $url);
+        } else {
+            Cache::put($cacheKey, '', now()->addDay());
+        }
+
+        return $url;
     }
 }

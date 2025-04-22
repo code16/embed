@@ -4,6 +4,9 @@ namespace Code16\Embed\Services;
 
 use Code16\Embed\ServiceBase;
 use Code16\Embed\Services\Utils\IsVideoService;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Http;
 
 class Vimeo extends ServiceBase
 {
@@ -29,6 +32,23 @@ class Vimeo extends ServiceBase
 
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
-        return null;
+        return $this->cacheThumbnailUrl(function () use ($maxResolution) {
+            try {
+                $oembed = Http::get(sprintf(
+                    'https://vimeo.com/api/oembed.json?url=%s&width=%d&height=%d',
+                    rawurlencode($this->url),
+                    $maxResolution ? 1920 : 640,
+                    $maxResolution ? 1080 : 360
+                ))
+                    ->throw()
+                    ->json();
+
+                return $oembed['thumbnail_url'] ?? '';
+            } catch (RequestException|ConnectionException $e) {
+                return '';
+            }
+        },
+            $maxResolution ? 'max' : 'low'
+        );
     }
 }
