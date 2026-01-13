@@ -8,10 +8,11 @@ use Code16\Embed\Tests\EmbedTestCase;
 use Code16\Embed\Tests\Fakes\Services\FakeServiceOne;
 use Code16\Embed\Tests\Fakes\Services\FakeServiceTwo;
 use Code16\Embed\ValueObjects\Url;
+use PHPUnit\Framework\Attributes\Test;
 
 class ServiceFactoryTest extends EmbedTestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_get_a_service_by_url()
     {
         ServiceFactory::fake();
@@ -20,7 +21,7 @@ class ServiceFactoryTest extends EmbedTestCase
         $this->assertInstanceOf(FakeServiceTwo::class, ServiceFactory::getByUrl(new Url('https://two.com')));
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_no_service_exists_to_handle_the_url()
     {
         ServiceFactory::fake();
@@ -28,7 +29,7 @@ class ServiceFactoryTest extends EmbedTestCase
         $this->assertNull(ServiceFactory::getByUrl(new Url('https://non-existing-service.com')));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_a_fallback_service()
     {
         $this->assertInstanceOf(Fallback::class,
