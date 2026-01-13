@@ -6,10 +6,11 @@ use Code16\Embed\Tests\EmbedTestCase;
 use Code16\Embed\Tests\Fakes\Services\FakeServiceOne;
 use Code16\Embed\Tests\Fakes\Services\FakeServiceTwo;
 use Code16\Embed\ValueObjects\Url;
+use PHPUnit\Framework\Attributes\Test;
 
 class ServiceBaseTest extends EmbedTestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_guess_view_name()
     {
         $this->assertEquals(
@@ -23,7 +24,7 @@ class ServiceBaseTest extends EmbedTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_pass_view_data()
     {
         $this->assertEquals(
