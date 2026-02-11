@@ -8,10 +8,11 @@ use Code16\Embed\Services\Vimeo;
 use Code16\Embed\Services\YouTube;
 use Code16\Embed\Tests\EmbedTestCase;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Framework\Attributes\Test;
 
 class EmbeddableUrlTest extends EmbedTestCase
 {
-    /** @test */
+    #[Test]
     public function it_passes_a_validUrl_for_any_service()
     {
         $validUrls = [
@@ -33,7 +34,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[Test]
     public function it_passes_for_an_allowed_service()
     {
         $url = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
@@ -52,7 +53,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[Test]
     public function it_passes_for_multiple_allowed_services()
     {
         $validUrls = [
@@ -77,7 +78,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_for_an_invalid_url()
     {
         $exception = null;
@@ -94,7 +95,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertNotNull($exception);
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_for_an_unsupported_service()
     {
         $exception = null;
@@ -112,7 +113,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertNotNull($exception);
     }
 
-    /** @test */
+    #[Test]
     public function it_replaces_supported_services_in_message_with_no_services_specified()
     {
         $url = 'https://www.real.com/video/xg4y8d';
@@ -133,7 +134,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertEquals($expectedMessage, $validator->messages()->get($attributeKey)[0]);
     }
 
-    /** @test */
+    #[Test]
     public function it_replaces_supported_service_in_message()
     {
         $url = 'https://www.real.com/video/xg4y8d';
@@ -143,7 +144,7 @@ class EmbeddableUrlTest extends EmbedTestCase
         $this->assertValidationMessage($url, $rule, $expectedMessage);
     }
 
-    /** @test */
+    #[Test]
     public function it_replaces_supported_services_list_in_message()
     {
         $url = 'https://www.real.com/video/xg4y8d';

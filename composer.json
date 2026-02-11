@@ -13,15 +13,15 @@
     "author": "Code 16",
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^10.0|^11.0|^12.0",
-        "illuminate/support": "^10.0|^11.0|^12.0"
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0"
     },
     "require-dev": {
         "code16/pint-config": "^1.2",
-        "laravel/framework": "^10.0|^11.0|^12.0",
+        "laravel/framework": "^11.0|^12.0",
         "laravel/pint": "^1.21",
         "orchestra/testbench": "^8.0|^9.0|^10.0",
-        "phpunit/phpunit": "^10.0|^11.0"
+        "phpunit/phpunit": "^10.0|^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {

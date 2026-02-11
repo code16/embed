@@ -5,10 +5,11 @@ namespace Code16\Embed\Tests\Unit\Services;
 use Code16\Embed\ServiceContract;
 use Code16\Embed\Tests\EmbedTestCase;
 use Code16\Embed\ValueObjects\Url;
+use PHPUnit\Framework\Attributes\Test;
 
 abstract class ServiceTestCase extends EmbedTestCase
 {
-    /** @test */
+    #[Test]
     public function it_renders_the_correct_view()
     {
         $this->assertEquals('embed::services.'.$this->expectedViewName(), $this->service()->fullViewName());
@@ -28,7 +29,7 @@ abstract class ServiceTestCase extends EmbedTestCase
 
     abstract protected function validUrls(): array;
 
-    /** @test */
+    #[Test]
     public function it_detects_appropriate_urls()
     {
         foreach ($this->validUrls() as $url) {
@@ -39,7 +40,7 @@ abstract class ServiceTestCase extends EmbedTestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_has_expected_view_data()
     {
         foreach ($this->expectedViewData() as $key => $value) {
