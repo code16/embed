@@ -1,0 +1,23 @@
+{
+  "resources/css/embed-iframe-content.css": {
+    "file": "assets/embed-iframe-content-COsdGNtV.css",
+    "src": "resources/css/embed-iframe-content.css",
+    "isEntry": true,
+    "name": "embed-iframe-content",
+    "names": [
+      "embed-iframe-content.css"
+    ]
+  },
+  "resources/js/embed-iframe-content.js": {
+    "file": "assets/embed-iframe-content-ZdKrmrqc.js",
+    "name": "embed-iframe-content",
+    "src": "resources/js/embed-iframe-content.js",
+    "isEntry": true
+  },
+  "resources/js/embed-iframe.js": {
+    "file": "assets/embed-iframe-DjMOwKKO.js",
+    "name": "embed-iframe",
+    "src": "resources/js/embed-iframe.js",
+    "isEntry": true
+  }
+}

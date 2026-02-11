@@ -1,14 +1,16 @@
 @props([
-    'html',
     'video' => false,
 ])
 
-<html @class(['video' => $video])>
+<html class="{{ $video ? 'video' : '' }}">
     <head>
-        <link rel="stylesheet" href="{{ mix('css/iframe-content.css', '/vendor/embed') }}">
+        @if(!$video)
+            @vite(['resources/js/embed-iframe-content.js'], 'vendor/embed')
+        @endif
+        @vite(['resources/css/embed-iframe-content.css'], 'vendor/embed')
+        {{ $head ?? null }}
     </head>
     <body style="margin: 0">
-        {!! $html !!}
-        <script src="{{ mix('js/iframeResizer.contentWindow.min.js', '/vendor/embed') }}"></script>
+        {{ $slot }}
     </body>
 </html>
