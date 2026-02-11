@@ -17,5 +17,3 @@ window.handleEmbedIframeLoaded = function handleEmbedIframeLoaded(iframe) {
         checkOrigin: false,
     }, iframe);
 }
-
-console.log('test');
