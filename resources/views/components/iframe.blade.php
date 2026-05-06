@@ -14,6 +14,13 @@
 
 @if(!$video)
     @pushonce('embed::script')
+        @php
+            $hotFile = Vite::hotFile();
+            Vite::useHotFile(public_path('vendor/embed/hot'));
+        @endphp
         @vite(['resources/js/embed-iframe.js'], 'vendor/embed')
+        @php
+            Vite::useHotFile($hotFile);
+        @endphp
     @endpushonce
 @endif
