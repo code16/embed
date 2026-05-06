@@ -1,7 +1,6 @@
 /.github export-ignore
 /tests export-ignore
 /.gitignore export-ignore
-/package.json export-ignore
 /package-lock.json export-ignore
 /phpunit.xml export-ignore
 /pint.json export-ignore
