@@ -10,7 +10,6 @@
 <iframe
     {{ $attributes }}
     src="https://player.vimeo.com/video/{{ $videoId }}?{{ http_build_query($params) }}"
-    frameborder="0"
     allow="autoplay; fullscreen"
     allowfullscreen
 ></iframe>
