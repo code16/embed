@@ -51,7 +51,7 @@ class Vimeo extends ServiceBase
                 $oembed = $this->getOembed();
 
                 if (isset($oembed['html']) && preg_match('/src="([^"]+)"/', $oembed['html'], $match)) {
-                    return $match[1];
+                    return html_entity_decode($match[1]);
                 }
 
                 return '';

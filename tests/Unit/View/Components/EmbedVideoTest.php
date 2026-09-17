@@ -16,7 +16,7 @@ class EmbedVideoTest extends EmbedTestCase
 
         Http::fake([
             'vimeo.com/api/oembed.json*' => Http::response([
-                'html' => '<iframe src="https://player.vimeo.com/video/295522327?app_id=122963" width="640" height="360"></iframe>',
+                'html' => '<iframe src="https://player.vimeo.com/video/295522327?h=7c6d5c70c8&amp;app_id=122963" width="640" height="360"></iframe>',
                 'thumbnail_url' => 'https://i.vimeocdn.com/video/thumb.jpg',
             ]),
         ]);
@@ -37,8 +37,8 @@ class EmbedVideoTest extends EmbedTestCase
             ],
             'vimeo' => [
                 'https://vimeo.com/295522327',
-                'https://player.vimeo.com/video/295522327?app_id=122963&autoplay=0',
-                'https://player.vimeo.com/video/295522327?app_id=122963&autoplay=1',
+                'https://player.vimeo.com/video/295522327?h=7c6d5c70c8&app_id=122963&autoplay=0',
+                'https://player.vimeo.com/video/295522327?h=7c6d5c70c8&app_id=122963&autoplay=1',
             ],
         ];
     }
@@ -48,10 +48,12 @@ class EmbedVideoTest extends EmbedTestCase
     public function it_renders_an_iframe_with_the_expected_src(string $url, string $expectedSrc, string $expectedAutoplaySrc)
     {
         $this->blade('<x-embed-video :url="$url" />', ['url' => $url])
-            ->assertSee($expectedSrc);
+            ->assertSee($expectedSrc)
+            ->assertDontSee('&amp;amp;', false);
 
         $this->blade('<x-embed-video :url="$url" :autoplay="$autoplay" />', ['url' => $url, 'autoplay' => true])
-            ->assertSee($expectedAutoplaySrc);
+            ->assertSee($expectedAutoplaySrc)
+            ->assertDontSee('&amp;amp;', false);
     }
 
     #[Test]

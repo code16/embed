@@ -13,7 +13,7 @@ class VimeoTest extends ServiceTestCase
 
         Http::fake([
             'vimeo.com/api/oembed.json*' => Http::response([
-                'html' => '<iframe src="https://player.vimeo.com/video/295522327?app_id=122963" width="640" height="360"></iframe>',
+                'html' => '<iframe src="https://player.vimeo.com/video/295522327?h=7c6d5c70c8&amp;app_id=122963" width="640" height="360"></iframe>',
                 'thumbnail_url' => 'https://i.vimeocdn.com/video/thumb.jpg',
             ]),
         ]);
@@ -45,6 +45,6 @@ class VimeoTest extends ServiceTestCase
 
     protected function expectedEmbedUrl(bool $autoplay = false): string
     {
-        return 'https://player.vimeo.com/video/295522327?app_id=122963&autoplay='.($autoplay ? 1 : 0);
+        return 'https://player.vimeo.com/video/295522327?h=7c6d5c70c8&app_id=122963&autoplay='.($autoplay ? 1 : 0);
     }
 }
