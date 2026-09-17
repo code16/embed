@@ -1,15 +1,12 @@
 @props([
-    'videoId',
+     /** @var \Code16\Embed\Services\YouTube $service */
+    'service',
     'autoplay' => false,
-])
-
-@php($params = [
-    'autoplay' => $autoplay ? 1 : 0,
 ])
 
 <iframe
     {{ $attributes }}
-    src="https://www.youtube-nocookie.com/embed/{{ $videoId }}?{{ http_build_query($params) }}"
+    src="{{ $service->embedUrl($autoplay) }}"
     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; autoplay"
     allowfullscreen>
 </iframe>

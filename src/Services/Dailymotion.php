@@ -23,6 +23,13 @@ class Dailymotion extends ServiceBase
         return null;
     }
 
+    public function embedUrl(bool $autoplay = false): string
+    {
+        return sprintf('https://www.dailymotion.com/embed/video/%s?%s', $this->videoId(), http_build_query([
+            'autoplay' => $autoplay ? 1 : 0,
+        ]));
+    }
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;

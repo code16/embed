@@ -17,6 +17,11 @@ class Fallback extends ServiceBase
         return null;
     }
 
+    public function embedUrl(bool $autoplay = false): string
+    {
+        return (string) $this->url;
+    }
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return null;
@@ -25,7 +30,7 @@ class Fallback extends ServiceBase
     public function viewData(): array
     {
         return [
-            'url' => $this->url,
+            'service' => $this,
         ];
     }
 }

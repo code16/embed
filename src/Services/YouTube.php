@@ -33,6 +33,13 @@ class YouTube extends ServiceBase
         return null;
     }
 
+    public function embedUrl(bool $autoplay = false): string
+    {
+        return sprintf('https://www.youtube-nocookie.com/embed/%s?%s', $this->videoId(), http_build_query([
+            'autoplay' => $autoplay ? 1 : 0,
+        ]));
+    }
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return $this->cacheThumbnailUrl(function () use ($maxResolution) {

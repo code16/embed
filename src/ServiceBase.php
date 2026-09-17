@@ -39,7 +39,17 @@ abstract class ServiceBase implements ServiceContract
 
     protected function cacheThumbnailUrl(\Closure $callback, ?string $cacheKey = null): ?string
     {
-        $cacheKey = sprintf('laravel-embed-thumbnail::%s_%s', $this->url, $cacheKey ?: 'default');
+        return $this->cacheUrl('thumbnail', $callback, $cacheKey);
+    }
+
+    protected function cacheEmbedUrl(\Closure $callback, ?string $cacheKey = null): ?string
+    {
+        return $this->cacheUrl('embed', $callback, $cacheKey);
+    }
+
+    private function cacheUrl(string $namespace, \Closure $callback, ?string $cacheKey = null): ?string
+    {
+        $cacheKey = sprintf('laravel-embed-%s::%s_%s', $namespace, $this->url, $cacheKey ?: 'default');
 
         if (($url = Cache::get($cacheKey)) !== null) {
             return $url;

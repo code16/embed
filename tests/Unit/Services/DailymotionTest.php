@@ -19,7 +19,7 @@ class DailymotionTest extends ServiceTestCase
     protected function expectedViewData(): array
     {
         return [
-            'videoId' => '12345',
+            'service' => '12345',
         ];
     }
 
@@ -30,5 +30,10 @@ class DailymotionTest extends ServiceTestCase
             'https://www.dailymotion.com/video/12345?playlist=67890',
             'https://dai.ly/12345',
         ];
+    }
+
+    protected function expectedEmbedUrl(bool $autoplay = false): string
+    {
+        return 'https://www.dailymotion.com/embed/video/12345?autoplay='.($autoplay ? 1 : 0);
     }
 }

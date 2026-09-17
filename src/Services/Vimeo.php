@@ -30,18 +30,51 @@ class Vimeo extends ServiceBase
         return null;
     }
 
+    protected function getOembed(int $width = 1920, int $height = 1080)
+    {
+        return once(
+            fn () => Http::get(sprintf(
+                'https://vimeo.com/api/oembed.json?url=%s&width=%d&height=%d',
+                rawurlencode($this->url),
+                $width,
+                $height
+            ))
+                ->throw()
+                ->json()
+        );
+    }
+
+    public function embedUrl(bool $autoplay = false): string
+    {
+        $url = $this->cacheEmbedUrl(function () {
+            try {
+                $oembed = $this->getOembed();
+
+                if (isset($oembed['html']) && preg_match('/src="([^"]+)"/', $oembed['html'], $match)) {
+                    return $match[1];
+                }
+
+                return '';
+            } catch (RequestException|ConnectionException $e) {
+                return '';
+            }
+        });
+
+        $url = $url ?: sprintf('https://player.vimeo.com/video/%s', $this->videoId());
+
+        return $url.(str_contains($url, '?') ? '&' : '?').http_build_query([
+            'autoplay' => $autoplay ? 1 : 0,
+        ]);
+    }
+
     public function thumbnailUrl(bool $maxResolution = true): ?string
     {
         return $this->cacheThumbnailUrl(function () use ($maxResolution) {
             try {
-                $oembed = Http::get(sprintf(
-                    'https://vimeo.com/api/oembed.json?url=%s&width=%d&height=%d',
-                    rawurlencode($this->url),
-                    $maxResolution ? 1920 : 640,
-                    $maxResolution ? 1080 : 360
-                ))
-                    ->throw()
-                    ->json();
+                $oembed = $this->getOembed(
+                    width: $maxResolution ? 1920 : 640,
+                    height: $maxResolution ? 1080 : 360
+                );
 
                 return $oembed['thumbnail_url'] ?? '';
             } catch (RequestException|ConnectionException $e) {

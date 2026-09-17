@@ -1,14 +1,12 @@
 @props([
-    'videoId',
+    /** @var \Code16\Embed\Services\Dailymotion $service */
+    'service',
     'autoplay' => false,
 ])
 
-@php($params = [
-    'autoplay' => $autoplay ? 1 : 0,
-])
 
 <iframe
     {{ $attributes }}
-    src="https://www.dailymotion.com/embed/video/{{ $videoId }}?{{ http_build_query($params) }}"
+    src="{{ $service->embedUrl($autoplay) }}"
     allowfullscreen>
 </iframe>

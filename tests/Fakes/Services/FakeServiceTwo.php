@@ -29,4 +29,9 @@ class FakeServiceTwo extends ServiceBase
     {
         return null;
     }
+
+    public function embedUrl(bool $autoplay = false): string
+    {
+        return (string) $this->url;
+    }
 }

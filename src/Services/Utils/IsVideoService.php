@@ -14,7 +14,7 @@ trait IsVideoService
     public function viewData(): array
     {
         return [
-            'videoId' => $this->videoId(),
+            'service' => $this,
         ];
     }
 }

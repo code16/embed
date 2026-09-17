@@ -43,10 +43,30 @@ abstract class ServiceTestCase extends EmbedTestCase
     #[Test]
     public function it_has_expected_view_data()
     {
+        $viewData = $this->service()->viewData();
+
         foreach ($this->expectedViewData() as $key => $value) {
-            $this->assertEquals($value, $this->service()->viewData()[$key]);
+            $this->assertArrayHasKey($key, $viewData);
+
+            if ($key === 'service') {
+                $this->assertInstanceOf($this->serviceClass(), $viewData[$key]);
+                $this->assertEquals($value, $viewData[$key]->videoId());
+
+                continue;
+            }
+
+            $this->assertEquals($value, $viewData[$key]);
         }
     }
 
     abstract protected function expectedViewData(): array;
+
+    #[Test]
+    public function it_generates_the_expected_embed_url()
+    {
+        $this->assertEquals($this->expectedEmbedUrl(), $this->service()->embedUrl());
+        $this->assertEquals($this->expectedEmbedUrl(true), $this->service()->embedUrl(true));
+    }
+
+    abstract protected function expectedEmbedUrl(bool $autoplay = false): string;
 }

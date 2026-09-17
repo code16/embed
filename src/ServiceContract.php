@@ -14,5 +14,7 @@ interface ServiceContract
 
     public function videoId(): ?string;
 
+    public function embedUrl(bool $autoplay = false): string;
+
     public function thumbnailUrl(bool $maxResolution = true): ?string;
 }

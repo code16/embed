@@ -19,7 +19,7 @@ class YouTubeTest extends ServiceTestCase
     protected function expectedViewData(): array
     {
         return [
-            'videoId' => 'MsiSPo2s3H4',
+            'service' => 'MsiSPo2s3H4',
         ];
     }
 
@@ -37,5 +37,10 @@ class YouTubeTest extends ServiceTestCase
             'https://www.youtube.com/watch?feature=player_embedded&v=MsiSPo2s3H4',
             'https://www.youtube.com/?feature=player_embedded&v=MsiSPo2s3H4',
         ];
+    }
+
+    protected function expectedEmbedUrl(bool $autoplay = false): string
+    {
+        return 'https://www.youtube-nocookie.com/embed/MsiSPo2s3H4?autoplay='.($autoplay ? 1 : 0);
     }
 }

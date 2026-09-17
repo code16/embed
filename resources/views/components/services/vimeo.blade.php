@@ -1,15 +1,12 @@
 @props([
-    'videoId',
+    /** @var \Code16\Embed\Services\Vimeo $service */
+    'service',
     'autoplay' => false,
-])
-
-@php($params = [
-    'autoplay' => $autoplay ? 1 : 0,
 ])
 
 <iframe
     {{ $attributes }}
-    src="https://player.vimeo.com/video/{{ $videoId }}?{{ http_build_query($params) }}"
+    src="{{ $service->embedUrl($autoplay) }}"
     allow="autoplay; fullscreen"
     allowfullscreen
 ></iframe>
